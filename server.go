@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/duo-labs/webauthn.io/session"
@@ -38,6 +39,11 @@ func main() {
 		log.Fatal("failed to create session store:", err)
 	}
 
+	port := os.Getenv("PORT")
+	if err != nil {
+		port = "8080"
+	}
+
 	r := mux.NewRouter()
 
 	r.HandleFunc("/register/begin/{username}", BeginRegistration).Methods("GET")
@@ -47,7 +53,7 @@ func main() {
 
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./")))
 
-	serverAddress := ":8080"
+	serverAddress := ":" + port
 	log.Println("starting server at", serverAddress)
 	log.Fatal(http.ListenAndServe(serverAddress, r))
 }
