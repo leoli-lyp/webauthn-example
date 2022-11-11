@@ -12,6 +12,6 @@ COPY . ./
 
 RUN go build -o /webauthn-example
 
-EXPOSE 8080
+EXPOSE 80
 
 CMD [ "/webauthn-example" ]

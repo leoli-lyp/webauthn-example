@@ -47,7 +47,7 @@ func main() {
 
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./")))
 
-	serverAddress := ":8080"
+	serverAddress := ":80"
 	log.Println("starting server at", serverAddress)
 	log.Fatal(http.ListenAndServe(serverAddress, r))
 }
